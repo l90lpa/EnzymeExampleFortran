@@ -1,0 +1,23 @@
+FORT		:= gfortran
+
+FORTFLAGS	+= 
+LDFLAGS		+= 
+
+app: main.o __enzyme_autodiff_stub.o
+	@echo "\nCompiling done, now linking\n"
+	$(FORT) $(LDFLAGS) main.o primal.o adjoint.o __enzyme_autodiff_stub.o -o app 
+
+main.o: main.f90 primal.o adjoint.o
+	$(FORT) $(FORTFLAGS) -c main.f90
+
+primal.o: primal.f90
+	$(FORT) $(FORTFLAGS) -c primal.f90
+
+adjoint.o: adjoint.f90 primal.o
+	$(FORT) $(FORTFLAGS) -c adjoint.f90
+
+__enzyme_autodiff_stub.o: __enzyme_autodiff_stub.c
+	gcc __enzyme_autodiff_stub.c -c
+	
+clean:
+	rm -f app main.o primal.o primal.mod adjoint.o adjoint.mod custom_math.o custom_math.mod __enzyme_autodiff_stub.o
