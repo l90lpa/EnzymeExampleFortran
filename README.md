@@ -9,7 +9,7 @@ This project gives an example of using the [Enzyme](https://enzyme.mit.edu/) AD 
 
 ## Setup
 - If `llvm-link`, `opt`, or `ifx` aren't in your path then either add them to your path, or put their paths in the appropriate variables in `Makefile`.
-- Modify `/path/to/LLVMEnzyme-15.so` which is in the `Makefile` to be the actual path to c
+- Modify the path, `/usr/local/lib/Enzyme/LLVMEnzyme-15.so`, in `Makefile` to be the actual path to the library
 
 ## Notes
 - `Makefile-gfortran` was a makefile used during development for testing that the code compiled without using the intel compiler.

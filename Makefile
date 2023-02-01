@@ -1,7 +1,7 @@
 FORT		:= ifx
 LLVMLINK	:= llvm-link
-LLVMOPT		:= opt 
-LLVMEnzyme	:= /path/to/LLVMEnzyme-15.so
+LLVMOPT		:= opt
+LLVMEnzyme	:= /usr/local/lib/Enzyme/LLVMEnzyme-15.so
 
 FORTFLAGS	+= -flto
 EnzymeNoOpt	:= -no-vec -unroll=0
