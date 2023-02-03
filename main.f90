@@ -6,6 +6,6 @@ program app
     integer :: i, steps
 
     do i = 1, 4
-        print *, "square(", i, ")=", square(real(i)), ", dsquare(", i, ")=", dsquare(real(i))
+        print *, "square(", i, ")=", square(real(i)), ", grad_square(", i, ")=", grad_square(real(i))
     end do
 end program app

@@ -4,7 +4,7 @@ module adjoint
     implicit none
 
     interface
-    real(c_float) function fortran__enzyme_autodiff(fnc, x) bind(c)
+    real(c_float) function square__enzyme_autodiff(fnc, x) bind(c)
         use, intrinsic :: iso_c_binding
         
         interface
@@ -18,15 +18,15 @@ module adjoint
         procedure(f_real_real) :: fnc
         real(c_float), intent(in), value :: x
 
-    end function fortran__enzyme_autodiff
+    end function square__enzyme_autodiff
     end interface
 
 contains
 
-real function dsquare( x )
+real function grad_square( x )
     real(c_float), intent(in), value :: x
 
-    dsquare = fortran__enzyme_autodiff(square,x);
-end function dsquare
+    grad_square = square__enzyme_autodiff(square,x);
+end function grad_square
 
 end module adjoint
