@@ -3,8 +3,8 @@ module primal
     implicit none
 contains
 
-real(c_float) function square( x ) bind(c)
-    real(c_float), intent(in), value :: x
+real function square( x )
+    real, intent(in) :: x
     square = x**2
 end function square
 

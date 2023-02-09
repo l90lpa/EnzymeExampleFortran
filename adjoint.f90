@@ -8,30 +8,13 @@ module adjoint
     integer, bind(C, name="enzyme_out") :: enzyme_out
     integer, bind(C, name="enzyme_const") :: enzyme_const
 
-    interface
-    real(c_float) function square__enzyme_autodiff(fnc, x) bind(c)
-        use, intrinsic :: iso_c_binding
-        
-        interface
-            real(c_float) function f_real_real(y) bind(c)
-                use, intrinsic :: iso_c_binding
-
-                real(c_float), intent(in), value :: y
-            end function f_real_real
-        end interface
-        
-        procedure(f_real_real) :: fnc
-        real(c_float), intent(in), value :: x
-
-    end function square__enzyme_autodiff
-    end interface
-
 contains
 
 real function grad_square( x )
-    real(c_float), intent(in), value :: x
-
-    grad_square = square__enzyme_autodiff(square,x);
+    real, intent(in) :: x
+    
+    grad_square = 0
+    call square__enzyme_autodiff(square, x, grad_square);
 end function grad_square
 
 
