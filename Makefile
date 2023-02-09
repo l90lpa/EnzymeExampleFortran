@@ -13,13 +13,13 @@ app: main.o
 	$(FORT) $(FORTFLAGS) -O3 ad.o -o app
 
 main.o: main.f90 primal.o adjoint.o
-	$(FORT) $(FORTFLAGS) -O2 $(EnzymeNoOpt) -c main.f90
+	$(FORT) $(FORTFLAGS) -O1 $(EnzymeNoOpt) -c main.f90
 
 primal.o: primal.f90
-	$(FORT) $(FORTFLAGS) -O2 $(EnzymeNoOpt) -c primal.f90
+	$(FORT) $(FORTFLAGS) -O1 $(EnzymeNoOpt) -c primal.f90
 
 adjoint.o: adjoint.f90 primal.o
-	$(FORT) $(FORTFLAGS) -O2 $(EnzymeNoOpt) -c adjoint.f90
+	$(FORT) $(FORTFLAGS) -O1 $(EnzymeNoOpt) -c adjoint.f90
 	
 clean:
 	rm -f app *.o *.ll *.mod
