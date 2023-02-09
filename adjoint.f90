@@ -3,6 +3,11 @@ module adjoint
     use primal
     implicit none
 
+    integer, bind(C, name="enzyme_dup") :: enzyme_dup
+    integer, bind(C, name="enzyme_dupnoneed") :: enzyme_dupnoneed
+    integer, bind(C, name="enzyme_out") :: enzyme_out
+    integer, bind(C, name="enzyme_const") :: enzyme_const
+
     interface
     real(c_float) function square__enzyme_autodiff(fnc, x) bind(c)
         use, intrinsic :: iso_c_binding
