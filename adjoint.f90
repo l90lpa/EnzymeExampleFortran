@@ -26,28 +26,6 @@ module adjoint
     end function square__enzyme_autodiff
     end interface
 
-    interface
-    subroutine div__enzyme_autodiff(fnc, x, dx, y, dy, result, dresult)
-        
-        interface
-            subroutine f_binop(a,b,c)
-                real, intent(in) :: a
-                real, intent(in) :: b
-                real, intent(inout) :: c
-            end subroutine f_binop
-        end interface
-        
-        procedure(f_binop)  :: fnc
-        real, intent(in)    :: x
-        real, intent(inout) :: dx
-        real, intent(in)    :: y
-        real, intent(inout) :: dy
-        real, intent(in)    :: result
-        real, intent(inout) :: dresult
-
-    end subroutine div__enzyme_autodiff
-    end interface
-
 contains
 
 real function grad_square( x )
