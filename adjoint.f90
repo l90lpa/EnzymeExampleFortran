@@ -54,7 +54,7 @@ function grad_div(x, y)
     dresult = 1
     grad_div = 0
     
-    call div__enzyme_autodiff(div, x, grad_div(1), y, grad_div(2), result, dresult)
+    call div__enzyme_autodiff(div, x, grad_div(1), y, grad_div(2), enzyme_dupnoneed, result, dresult)
 end function grad_div
 
 end module adjoint
