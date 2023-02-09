@@ -22,4 +22,4 @@ adjoint.o: adjoint.f90 primal.o
 	$(FORT) $(FORTFLAGS) -O2 $(EnzymeNoOpt) -c adjoint.f90
 	
 clean:
-	rm -f app main.o primal.o primal.mod adjoint.o adjoint.mod merged.o ad.o
+	rm -f app *.o *.ll *.mod
