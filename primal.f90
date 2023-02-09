@@ -21,4 +21,15 @@ subroutine div(x, y, result)
     result = x / y;
 end subroutine div
 
+function dot(c, x) result(y)
+    real, dimension(:), allocatable, intent(in) :: c 
+    real, dimension(:), allocatable, intent(in) :: x 
+    real :: y
+    integer :: i
+    y = 0
+    do i = 1, size(x)
+        y = y + (c(i) * x(i))
+    end do
+end function dot
+
 end module primal

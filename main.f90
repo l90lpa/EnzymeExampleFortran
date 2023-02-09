@@ -5,6 +5,8 @@ program app
 
     integer :: i, j, steps
     real :: div_result
+    real, dimension(:), allocatable :: c
+    real, dimension(:), allocatable :: x
 
     do i = 1, 3
         print *, "square(", i, ")=", square(real(i))
@@ -26,6 +28,21 @@ program app
         print *, "grad_div(", i, ", ", j, ")=", grad_div(real(i),real(j))
     end do
     print *, ""
+    
+    allocate(c(3))
+    allocate(x(3))
+    
+    c = [1,2,3]
+    x = [2,3,4]
 
+    print *, "c=", c
+    print *, "x=", x
+    print *, "dot(c,x)=", dot(c, x)
+    
+    print *, "grad_dot(x,c)=", grad_dot(c, x)
+    
+    deallocate(c)
+    deallocate(x)
+    print *, ""
 
 end program app
