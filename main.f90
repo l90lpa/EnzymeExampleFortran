@@ -4,9 +4,13 @@ program app
     implicit none
 
     integer :: i, j, steps
-    real :: div_result
+    real :: div_result, alpha, beta
     real, dimension(:), allocatable :: c
     real, dimension(:), allocatable :: x
+    real, dimension(:), allocatable :: y
+    real, dimension(:), allocatable :: y_copy
+    real, dimension(:), allocatable :: dy
+    real, dimension(:,:), allocatable :: A
 
     do i = 1, 3
         print *, "square(", i, ")=", square(real(i))
@@ -40,9 +44,27 @@ program app
     print *, "dot(c,x)=", dot(c, x)
     
     print *, "grad_dot(x,c)=", grad_dot(c, x)
-    
-    deallocate(c)
-    deallocate(x)
     print *, ""
+
+    allocate(A(2,3))
+    allocate(y(2))
+    allocate(y_copy(2))
+    allocate(dy(2))
+    alpha = 1
+    beta = 1
+    A = reshape((/1,4,2,5,3,6/), shape(A))
+    y = [7,8]
+    y_copy = y
+    dy = [0,1]
+    
+    print *, "alpha=", alpha
+    print *, "A=", A
+    print *, "x=", x
+    print *, "beta=", beta
+    print *, "y=", y
+    print *, "dy=", dy
+    call gemv(alpha, A, x, beta, y)
+    print *, "gemv(alpha, A, x, beta, y) => y=", y
+    print *, "grad_gemv(alpha, A, x, beta, y, dy)=", grad_gemv(alpha, A, x, beta, y, dy)
 
 end program app

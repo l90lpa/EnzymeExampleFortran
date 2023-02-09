@@ -24,6 +24,32 @@ module adjoint
     end subroutine
     end interface
 
+    interface
+    subroutine gemv__enzyme_autodiff(fnc, enzyme_flag1, alpha, enzyme_flag2, A, x, dx, enzyme_flag3, beta, enzyme_flag4, y, dy)
+        interface
+            subroutine fnc_decal(alpha_, A_, x_, beta_, y_) 
+                real, intent(in) :: alpha_
+                real, dimension(:,:), allocatable, intent(in) :: A_ 
+                real, dimension(:), allocatable, intent(in) :: x_ 
+                real, intent(in) :: beta_
+                real, dimension(:), allocatable, intent(inout) :: y_ 
+            end subroutine
+        end interface
+        procedure(fnc_decal) :: fnc
+        integer :: enzyme_flag1
+        real, intent(in) :: alpha
+        integer :: enzyme_flag2
+        real, dimension(:,:), allocatable, intent(in) :: A 
+        real, dimension(:), allocatable, intent(in) :: x 
+        real, dimension(:), allocatable, intent(inout) :: dx
+        integer :: enzyme_flag3 
+        real, intent(in) :: beta
+        integer :: enzyme_flag4
+        real, dimension(:), allocatable, intent(inout) :: y 
+        real, dimension(:), allocatable, intent(inout) :: dy 
+    end subroutine
+    end interface
+
 contains
 
 real function grad_square( x )
@@ -65,5 +91,19 @@ function grad_dot(c, x) result(dx)
     
     call dot__enzyme_autodiff(dot, enzyme_const, c, x, dx)
 end function grad_dot
+
+function grad_gemv(alpha, A, x, beta, y, dy) result(dx)
+    real, intent(in) :: alpha
+    real, dimension(:,:), allocatable, intent(in) :: A 
+    real, dimension(:), allocatable, intent(in) :: x 
+    real, intent(in) :: beta
+    real, dimension(:), allocatable, intent(inout) :: y 
+    real, dimension(:), allocatable :: dy 
+    real, dimension(:), allocatable :: dx 
+    allocate(dx(size(x)))
+    dx = 0
+    
+    call gemv__enzyme_autodiff(gemv, enzyme_const, alpha, enzyme_const, A, x, dx, enzyme_const, beta, enzyme_dupnoneed, y, dy)
+end function grad_gemv
 
 end module adjoint

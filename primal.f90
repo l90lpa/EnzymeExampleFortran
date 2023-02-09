@@ -32,4 +32,20 @@ function dot(c, x) result(y)
     end do
 end function dot
 
+subroutine gemv(alpha, A, x, beta, y) 
+    real, intent(in) :: alpha
+    real, dimension(:,:), allocatable, intent(in) :: A 
+    real, dimension(:), allocatable, intent(in) :: x 
+    real, intent(in) :: beta
+    real, dimension(:), allocatable, intent(inout) :: y 
+    real, dimension(size(y)) :: temp 
+    integer :: i
+
+    temp = 0
+    do i = 1, size(A, 2)
+        temp(:) = temp(:) + (x(i) * A(:,i))
+    end do
+    y(:) = alpha * temp(:) + beta * y(:)
+end subroutine gemv
+
 end module primal
